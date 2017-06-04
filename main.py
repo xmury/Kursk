@@ -27,6 +27,17 @@ def prework():
 	os. chdir("../html")	
 	return file
 
+def cover_data(space, style):
+	g = 0;
+	f = open("data.html", "a")
+	f.write(style)
+	while g < len(space):
+		g = int(g) + 1;
+		text = str(g) + " --> " + str(space[g][0]) + "\n"
+		f.write(text)
+		f.write("\n")
+	f.close() 	
+	os.system("subl data.html")
 
 file = prework()
 #print("text = ",style.styleParser(pre.preParser(name_file)))
@@ -34,9 +45,7 @@ file = prework()
 space = par.parser(pre.preParser(file))
 #space = parser(name_file)
 style = style.styleParser(pre.preParser(file))
-'''
-for w in range(1, len(space)+1):
-	if space[w][1] == "<p":
-		print(w, "> ", space[w][0])
-'''
+
+cover_data(space, style)
+
 gen.generator(space)

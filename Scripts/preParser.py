@@ -5,6 +5,7 @@ def preParser(name_file):
 	new_doc_text = ""
 	for w in doc_text:
 		for d in w:
+
 			if d == "\n":
 				new_doc_text += " "
 			else:

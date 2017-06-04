@@ -5,15 +5,15 @@ def styleParser(name_file):
 	g = 0
 
 	for w in name_file:
-		if w == "<" and f_1 == False: f_2 = True
+		if w == "<" and f_2 == False: f_2 = True
 		
 		if f_3 == True: text += w
 		if w != " " and f_2 == True and f_3 == False:
 			teg += w
+			
+			if teg == "<style": f_3 = True; 
 
-			if teg == "<style": f_3 = True
-
-			if len(teg) > 6: f_1 = False; teg = "" 
+			if len(teg) > 6: f_2 = False; teg = "" 
 
 		if w == "<" and f_3 == True: f_4 = True
 
@@ -25,7 +25,5 @@ def styleParser(name_file):
 		if f_5 == True: text += ">";break
 		
 		g+=1
-#		if g > 1400:
-#			print(g, " || text = ", text, " | c_teg = ", c_teg)
-#			input()
+		
 	return teg + text
