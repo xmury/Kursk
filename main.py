@@ -1,29 +1,19 @@
-'''
-	Меж абзацный интервал = 1,5
-	Шрифт = Times New Roman
-	Кегль = 14
-	выравнивание по ширине
-	абзацный отступ в тексте = 1,25 см
-'''
 from Scripts import parser as par
 from Scripts import preParser as pre
 from Scripts import generator as gen
 from Scripts import style 
 import os
 
-''' Алгоритм
-		- Перейти в директорию с документом
-		* Обнаружить документ .docx
-		* Переименовать по форме
-		* Конвертировать в html
-		* Переместить полученный документ в папку html
 
-	
-'''
 def prework():
-	i = 0
+	i = 0; file = ""
 	link = "libreoffice --convert-to html "
-	os.chdir("./Documents/docx") 	#* Перейти в директорию с документом
+	# Удаляем все файлы в директории html
+	os.chdir("./Documents/html")
+	for w in os.listdir():
+		os.remove(w)
+	# и возвращаемся назад
+	os.chdir("../docx")			#* Перейти в директорию с документом
 	
 	for w in  os.listdir(): 		#* Обнаружить документ .docx
 		q = w[-5: len(w)]
@@ -31,8 +21,8 @@ def prework():
 		if q == ".docx" or ".doc" in q: 	
 			i+=1; 	file = "doc_" + str(i) + ".html"
 			
-			os.rename(w, "doc_"+ str(i))	#	* Переименовать по форме
-			os.system(link + "doc_"+ str(i))	# 	* Конвертировать в html
+			os.rename(w, "doc_"+ str(i) + ".docx")	#	* Переименовать по форме
+			os.system(link + "doc_"+ str(i) + ".docx")	# 	* Конвертировать в html
 			os.system("mv " + file + " ../html")	#	* Переместить полученный документ в папку html
 	os. chdir("../html")	
 	return file
