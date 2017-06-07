@@ -30,24 +30,57 @@ def test_style(teg):
 	return data_style
 
 def test_paragraph(teg):
-	teg_text = ""; data_style = {}; h =[" ", ":", ";", "\n", "\t", "{", "}", ""]
-	tt = []
+	nur = []
+	teg_text = ""; data_style = {}; h =[" ", ":", ";", "\n", "\t", "{", "}", "", "=", "\'", "\"", "<", ">"]
+	progon_1 = []
 	for w in teg:
 		if w not in h:
 			teg_text += w
-		if w == " ":
-			tt += [teg_text]
+		if w == " " or w == ">" or w == "<" or w == "=":
+			progon_1 += [teg_text]
 			teg_text = ""
-		if w == "{" or w == "}": tt += w 
-	return tt
+		if w == "{" or w == "}" or w == ">" or w == "<": progon_1 += w
+	
+	progon_2 = {}; body = []
+	f1 = False; f2 = False; key = ""
+	for w in progon_1:
+ 		if f2: body+=[w]; 
+ 		if f1: key = w; f1 = False; f2 = True
+ 	
+ 		if w == ">": f2 = False; progon_2[key] = body; body = []
+
+ 		if w == "<": f1 = True
+
+	ty = []
+	for w in progon_2:
+		if w[0] == "/" or w == ">": ty += [w]
+	
+	for w in ty:
+		del progon_2[w]	
+
+	for w in progon_2:
+		kt = []
+		for d in progon_2[w]:
+			if not (d == ">" or d == "style" or d == ''): kt += [d]
+		progon_2[w] = kt
+	print(progon_2)
+	for w in progon_2:
+		kt = []; i = 0
+		for d in progon_2[w]:
+			i+=1
+			if i == 2: i = 0; progon_2[w] = [kt]; kt = []
+			else: kt += [d]; print(d)
+	return progon_2
 
 
-g=0; data_style = []; data_paragraph = []
+g=0; data_style = []; data_paragraph = {}
 for w in data:
-	g+=1;
+	g+=1
 	if g == 1: data_style = test_style(w)
-	if g > 1: data_paragraph += [test_paragraph(w)]
+	if g > 1: data_paragraph[g] = [test_paragraph(w)]
+	if g == 3: break
 
 #print(data_style)
-print()
-print(data_paragraph[0])
+for w in data_paragraph:
+	print(data_paragraph[w])
+#print(data_paragraph[2])
