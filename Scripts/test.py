@@ -15,6 +15,7 @@ def test_style(teg):
 	dd = []; ww = 0; www = 0
 	f1 = False
 	i = 0; tq = []; ttq = []
+
 	for w in tt:
 		if w == "<style" or w == 'type="text/css">' or w == '': continue
 
@@ -25,8 +26,18 @@ def test_style(teg):
 			if w == "{" or w == "}":
 				pass
 			else: tq += [w]
-		if i == 2: i = 0; ttq += [tq]; tq = []
+		if i == 2: i = 0; ttq += tq; tq = []
 		if w == "}": f1 = False; i = 0; tq = []; data_style[dd] = ttq; ttq = []
+	
+	for w in data_style:
+		kt = {}; i = 0; r = ""
+		for d in data_style[w]:
+			i+=1;
+			if int(i) == 1: r = d
+			if i == 2: 
+				kt[r] = d; i = 0
+		data_style[w] = kt
+
 	return data_style
 
 def test_paragraph(teg):
@@ -63,13 +74,13 @@ def test_paragraph(teg):
 		for d in progon_2[w]:
 			if not (d == ">" or d == "style" or d == ''): kt += [d]
 		progon_2[w] = kt
-	print(progon_2)
-	for w in progon_2:
-		kt = []; i = 0
-		for d in progon_2[w]:
+	for w in progon_2: 										# Получаем список ключей
+		kt = {}; i = 0; r = ""; 
+		for d in progon_2[w]:								# Получаем с
 			i+=1
-			if i == 2: i = 0; progon_2[w] = [kt]; kt = []
-			else: kt += [d]; print(d)
+			if int(i) == 1: r = d
+			if i == 2: i = 0; kt[r] = d; r = ""
+		progon_2[w] = kt
 	return progon_2
 
 
@@ -80,7 +91,7 @@ for w in data:
 	if g > 1: data_paragraph[g] = [test_paragraph(w)]
 	if g == 3: break
 
-#print(data_style)
-for w in data_paragraph:
-	print(data_paragraph[w])
-#print(data_paragraph[2])
+print(data_style) 
+#for w in data_paragraph:
+#	print(data_paragraph[w])
+#print(data_paragraph[3])
