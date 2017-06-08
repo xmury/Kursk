@@ -1,6 +1,6 @@
 f = open("./../Documents/html/data.html", "r")
 data = f.readlines()
-
+f.close()
 def test_style(teg):
 	teg_text = ""; data_style = {}; h =[" ", ":", ";", "\n", "\t", "{", "}", ""]
 	tt = []
@@ -83,15 +83,19 @@ def test_paragraph(teg):
 		progon_2[w] = kt
 	return progon_2
 
-
 g=0; data_style = []; data_paragraph = {}
 for w in data:
 	g+=1
 	if g == 1: data_style = test_style(w)
 	if g > 1: data_paragraph[g] = [test_paragraph(w)]
-	if g == 3: break
 
-print(data_style) 
-#for w in data_paragraph:
-#	print(data_paragraph[w])
-#print(data_paragraph[3])
+f = open("data_new.html", 'w')
+for w in data_style:
+	text = w + " --> " + str(data_style[w])
+	f.write(text)
+	f.write("\n")
+for w in data_paragraph:
+	text = str(w) + " --> " + str(data_paragraph[w])
+	f.write(text)
+	f.write("\n")
+f.close()
