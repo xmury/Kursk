@@ -89,13 +89,32 @@ for w in data:
 	if g == 1: data_style = test_style(w)
 	if g > 1: data_paragraph[g] = [test_paragraph(w)]
 
-f = open("data_new.html", 'w')
-for w in data_style:
-	text = w + " --> " + str(data_style[w])
-	f.write(text)
-	f.write("\n")
-for w in data_paragraph:
-	text = str(w) + " --> " + str(data_paragraph[w])
-	f.write(text)
-	f.write("\n")
-f.close()
+def testing(data_paragraph, data_stylea):
+	i=0; gost = {"line-height":"150%", "align":"justify", "text-indent":"0.49in", "face":"Times New Roman, serif", "font-size":"14pt"}
+	f_1 = False; f_2 = False; f_3 = False; f_4 = False; 
+	for w in data_paragraph: # Порядковый номер
+		test = data_paragraph[w][0];  
+		if "p" in test:
+			if test['p']["align"] == gost["align"]: 
+				f_1 = True
+			else:
+				# Добавляем в словарь
+			if test['p']["line-height"] == gost["line-height"]:
+				f_2 = True
+			else:
+				# 
+			if test['p']["text-indent"] == gost["text-indent"]:
+				f_3 = True
+			else:
+
+			if test['font']["font-size"] == gost["font-size"]:
+				f_4 = True
+			else:
+
+		i+=1; print(i) 
+			
+		#print(test['p']["align"])
+		#print(gost["align"])
+		#if i==1:
+		#	break
+testing(data_paragraph, data_style)
